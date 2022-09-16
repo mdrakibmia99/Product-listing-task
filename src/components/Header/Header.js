@@ -11,11 +11,11 @@ console.log(products,"json products");
   
     return (
         <div className=''>
-            <div className='container flex  justify-between mx-auto shadow-lg py-4 lg:px-0 px-4 rounded-sm '>
+            <div className='container flex  justify-between mx-auto shadow-lg py-4 lg:px-0 px-4 rounded-sm lg:flex-row md:flex-row flex-col'>
                 {/* header right select choice and size */}
                 <div className='header-left flex items-center gap-x-4  pl-5'>
                     <div className='dress-choice'>
-                        <select class="select select-bordered select-sm w-full max-w-xs rounded-sm">
+                        <select class="select select-bordered select-sm w-full max-w-xs rounded-sm uppercase">
                             <option disabled selected>Choice</option>
                             <option>apparel</option>
                             <option>footwear</option>
@@ -27,7 +27,7 @@ console.log(products,"json products");
                         </select>
                     </div>
                     <div className='size-choice'>
-                        <select class="select select-bordered select-sm w-full max-w-xs rounded-sm">
+                        <select class="select select-bordered select-sm w-full max-w-xs rounded-sm uppercase">
                             <option disabled selected>Size</option>
                             <option>S</option>
                             <option>M</option>
@@ -41,7 +41,7 @@ console.log(products,"json products");
                 </div>
 
                 {/* header right search and add to cart part        */}
-                <div className="flex lg:flex-row md:flex-row flex-col gap-x-4 lg:gap-y-0 md:gap-y-0 gap-y-4 pr-5">
+                <div className="flex flex-row mt-5 lg:mt-0 md:mt-0 gap-x-4 lg:gap-y-0 md:gap-y-0 gap-y-4 pr-5">
                     {/* search filter */}
                     <div className="flex items-center gap-x-2">
                         <span className="font-medium lg:block md:block hidden">Search:</span>
@@ -54,7 +54,7 @@ console.log(products,"json products");
 
                     {/* add to cart */}
                     <div>
-                        <button className="btn text-white px-8 bg-[#00a0c0] border-0 rounded-sm">Add to cart</button>
+                        <button className="btn text-white lg:px-8 md:px-8 px-3 bg-[#00a0c0] border-0 rounded-sm whitespace-nowrap">Add to cart</button>
                     </div>
                 </div>
             </div>
