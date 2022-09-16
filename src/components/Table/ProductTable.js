@@ -86,13 +86,13 @@ const ProductTable = ({ products }) => {
                                                 <span>
                                                     <input
                                                         type="text"
-                                                        placeholder="Type quantity"
-                                                        className="input input-bordered input-sm max-w-xs rounded-sm"
+                                                        placeholder="Quantity"
+                                                        className="input input-bordered input-sm max-w-[90px] rounded-sm"
                                                     />
                                                 </span>
 
                                                 {/* cart */}
-                                                <span className="tooltip" data-tip="Add to Cart">
+                                                <span className="tooltip w-[90px] bg-[black] py-1 text-white flex justify-center rounded-sm" data-tip="Add to Cart">
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         fill="none"
