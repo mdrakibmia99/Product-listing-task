@@ -1,21 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import ProductTable from '../Table/ProductTable';
 const Header = () => {
+const [allProducts,setAllProducts]=useState([])
+const [dressSelected,setDressSelected]=useState('');
 const [products,setProducts]=useState([])
+const [size,setSize]=useState('')
+const [searchProduct,setSearchProduct]=useState('')
+const [filterProduct,setFilterProduct]=useState([]);
 useEffect(()=>{
     fetch("/products.json")
     .then(res=>res.json())
-    .then(data=>setProducts(data))
+    .then(data=>setAllProducts(data))
+
+   
 },[])
-console.log(products,"json products");
-  
+
+useEffect(()=>{
+    if(dressSelected===''){
+        setProducts(allProducts)
+        setFilterProduct(allProducts)
+    }else{
+        const  selectProduct= allProducts.filter((product)=>product.category.toLowerCase().includes(dressSelected.toLowerCase()) && product.size.toLowerCase().includes(size.toLowerCase())) ;
+        setProducts(selectProduct);
+        setFilterProduct(selectProduct);
+    }
+    if(searchProduct!==''){
+        const  selectProduct= filterProduct.filter((product)=>product.name.toLowerCase().includes(searchProduct.toLowerCase()));
+        setProducts(selectProduct);
+    }
+
+
+},[dressSelected,allProducts,size,searchProduct,filterProduct])
+
+
     return (
         <div className=''>
             <div className='container flex  justify-between mx-auto shadow-lg py-4 lg:px-0 px-4 rounded-sm lg:flex-row md:flex-row flex-col'>
                 {/* header right select choice and size */}
                 <div className='header-left flex items-center gap-x-4  pl-5'>
                     <div className='dress-choice'>
-                        <select class="select select-bordered select-sm w-full max-w-xs rounded-sm uppercase">
+                        <select
+                        onChange={(e)=>setDressSelected(e.target.value)} 
+                        className="select select-bordered select-sm w-full max-w-xs rounded-sm uppercase">
                             <option disabled selected>Choice</option>
                             <option>apparel</option>
                             <option>footwear</option>
@@ -27,7 +53,9 @@ console.log(products,"json products");
                         </select>
                     </div>
                     <div className='size-choice'>
-                        <select class="select select-bordered select-sm w-full max-w-xs rounded-sm uppercase">
+                        <select
+                          onChange={(e)=>setSize(e.target.value)} 
+                         className="select select-bordered select-sm w-full max-w-xs rounded-sm uppercase">
                             <option disabled selected>Size</option>
                             <option>S</option>
                             <option>M</option>
@@ -46,6 +74,7 @@ console.log(products,"json products");
                     <div className="flex items-center gap-x-2">
                         <span className="font-medium lg:block md:block hidden">Search:</span>
                         <input
+                            onChange={(e)=>setSearchProduct(e.target.value)} 
                             type="text"
                             placeholder="Enter product name"
                             className="input input-bordered rounded-sm input-md max-w-xs"

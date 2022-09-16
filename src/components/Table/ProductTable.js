@@ -3,8 +3,8 @@ import React from 'react';
 const ProductTable = ({ products }) => {
     return (
         <div>
-            <div class="overflow-x-auto">
-                <table class="table w-full">
+            <div className="overflow-x-auto">
+                <table className="table w-full">
 
                     <thead>
                         <tr>
@@ -39,7 +39,7 @@ const ProductTable = ({ products }) => {
                                                         viewBox="0 0 24 24"
                                                         stroke-width="1.5"
                                                         stroke="currentColor"
-                                                        class="w-6 h-6"
+                                                        className="w-6 h-6"
                                                     >
                                                         <path
                                                             stroke-linecap="round"
@@ -59,7 +59,7 @@ const ProductTable = ({ products }) => {
                                                         viewBox="0 0 24 24"
                                                         stroke-width="1.5"
                                                         stroke="currentColor"
-                                                        class="w-6 h-6"
+                                                        className="w-6 h-6"
                                                     >
                                                         <path
                                                             stroke-linecap="round"
@@ -99,7 +99,7 @@ const ProductTable = ({ products }) => {
                                                         viewBox="0 0 24 24"
                                                         stroke-width="1.5"
                                                         stroke="currentColor"
-                                                        class="w-6 h-6"
+                                                        className="w-6 h-6"
                                                     >
                                                         <path
                                                             stroke-linecap="round"
@@ -114,7 +114,7 @@ const ProductTable = ({ products }) => {
                                             <span className="flex">
                                                 <div className="tooltip text-white" data-tip="Select multiple">
                                                     <input type="checkbox" className="checkbox checkbox-sm shadow" />
-                                                    {/* <button class="btn">Hover me</button> */}
+                                                    {/* <button className="btn">Hover me</button> */}
                                                 </div>
                                             </span>
                                         </span>
