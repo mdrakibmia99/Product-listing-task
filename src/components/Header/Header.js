@@ -17,23 +17,28 @@ const Header = () => {
     }, [])
 
     useEffect(() => {
-        if (category === 'Category') {
+        if (category === 'Category' && size === "Size") {
             setProducts(allProducts)
             setFilterProduct(allProducts)
-        } else if (category !== 'Category') {
+        } else if (category !== 'Category' && size === "Size") {
             const selectProduct = allProducts.filter((product) => product.category.toLowerCase().includes(category.toLowerCase()));
             setProducts(selectProduct);
-            setFilterProduct(selectProduct);
-            if (size !== "Size") {
-                const selectProduct = filterProduct.filter((product) => product.size.toLowerCase().includes(size.toLowerCase()));
-                console.log(size, "size")
-                setProducts(selectProduct);
-                // setFilterProduct(selectProduct);
-            }
+            setFilterProduct(selectProduct)
+        } else if (category === 'Category' && size !== "Size") {
+            const selectProduct = allProducts.filter((product) => product.size.toLowerCase().includes(size.toLowerCase()));
+            setProducts(selectProduct)
+            setFilterProduct(selectProduct)
+        } else if (category !== 'Category' && size !== "Size") {
+            const selectProduct = allProducts.filter((product) => product.category.toLowerCase().includes(category.toLowerCase())
+                &&
+                product.size.toLowerCase().includes(size.toLowerCase()));
+            setProducts(selectProduct);
+            setFilterProduct(selectProduct)
         }
         if (searchProduct !== '') {
             const selectProduct = filterProduct.filter((product) => product.name.toLowerCase().includes(searchProduct.toLowerCase()));
             setProducts(selectProduct);
+
         }
 
 
