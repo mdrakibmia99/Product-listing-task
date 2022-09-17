@@ -7,6 +7,7 @@ const Header = () => {
     const [filterProduct, setFilterProduct] = useState([]);
     const [category, setCategory] = useState('Category');
     const [size, setSize] = useState('Size')
+
     useEffect(() => {
         fetch("/products.json")
             .then(res => res.json())
@@ -23,12 +24,12 @@ const Header = () => {
             const selectProduct = allProducts.filter((product) => product.category.toLowerCase().includes(category.toLowerCase()));
             setProducts(selectProduct);
             setFilterProduct(selectProduct);
-        }
-        if (size !== "Size") {
-            const selectProduct = filterProduct.filter((product) => product.size.toLowerCase().includes(size.toLowerCase()));
-            console.log(size, "size")
-            setProducts(selectProduct);
-            setFilterProduct(selectProduct);
+            if (size !== "Size") {
+                const selectProduct = filterProduct.filter((product) => product.size.toLowerCase().includes(size.toLowerCase()));
+                console.log(size, "size")
+                setProducts(selectProduct);
+                // setFilterProduct(selectProduct);
+            }
         }
         if (searchProduct !== '') {
             const selectProduct = filterProduct.filter((product) => product.name.toLowerCase().includes(searchProduct.toLowerCase()));
@@ -79,6 +80,7 @@ const Header = () => {
                             onClick={() => {
                                 setCategory("Category");
                                 setSize("Size");
+                                setSearchProduct('');
                             }}
                         >
                             <span>
@@ -110,6 +112,7 @@ const Header = () => {
                         <input
                             onChange={(e) => setSearchProduct(e.target.value)}
                             type="text"
+                            value={searchProduct}
                             placeholder="Enter product name"
                             className="input input-bordered rounded-sm input-md max-w-xs"
                         />
