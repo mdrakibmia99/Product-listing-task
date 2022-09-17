@@ -19,7 +19,10 @@ const ProductTable = ({ products }) => {
                     <tbody>
                         {
                             products.map((product) =>
-                                <tr key={product._id} className="hover">
+                                <tr
+
+                                    key={product._id}
+                                    className="hover">
                                     <td>
                                         <img
                                             src={product.thumbnail}
@@ -85,6 +88,7 @@ const ProductTable = ({ products }) => {
                                                 {/* input */}
                                                 <span>
                                                     <input
+                                                         disabled={product.stock === "Out of Stock"}
                                                         type="text"
                                                         placeholder="Quantity"
                                                         className="input input-bordered input-sm max-w-[90px] rounded-sm"
@@ -92,7 +96,9 @@ const ProductTable = ({ products }) => {
                                                 </span>
 
                                                 {/* cart */}
-                                                <span className="tooltip w-[90px] bg-[black] py-1 text-white flex justify-center rounded-sm" data-tip="Add to Cart">
+                                                <span 
+                                                   
+                                                className={`tooltip w-[90px] bg-[black] py-1 text-white flex justify-center rounded-sm ${product.stock === "Out of Stock" && "pointer-events-none"}`} data-tip="Add to Cart">
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         fill="none"
@@ -111,12 +117,14 @@ const ProductTable = ({ products }) => {
                                             </span>
 
                                             {/* checkbox */}
-                                            <span className="flex">
-                                                <div className="tooltip text-white" data-tip="Select multiple">
-                                                    <input type="checkbox" className="checkbox checkbox-sm shadow" />
-                                                    {/* <button className="btn">Hover me</button> */}
-                                                </div>
-                                            </span>
+                                            {product.stock === "In Stock" &&
+
+                                                <span className="flex">
+                                                    <div className="tooltip text-white" data-tip="Select multiple">
+                                                        <input type="checkbox" className="checkbox checkbox-sm shadow" />
+
+                                                    </div>
+                                                </span>}
                                         </span>
                                     </td>
                                 </tr>

@@ -57,12 +57,12 @@ const Header = () => {
                             onChange={(e) => setCategory(e.target.value)}
                             className="select select-bordered select-sm w-full max-w-xs rounded-sm">
                             <option value={category} disabled selected>{category}</option>
-                            <option>apparel</option>
-                            <option>footwear</option>
-                            <option>sportswear</option>
-                            <option>traditional</option>
-                            <option>fabric</option>
-                            <option>haute</option>
+                            <option>Apparel</option>
+                            <option>Footwear</option>
+                            <option>Sportswear</option>
+                            <option>Traditional</option>
+                            <option>Fabric</option>
+                            <option>Haute</option>
 
                         </select>
                     </div>
@@ -129,7 +129,7 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-
+            {/* this is product table section  */}
             <div className='container mx-auto mt-3'>
                 <ProductTable products={products}></ProductTable>
             </div>
