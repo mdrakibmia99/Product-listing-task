@@ -1,28 +1,17 @@
 import React from 'react';
+import CheckOutLeft from './CheckOutLeft';
+import CheckOutRight from './CheckOutRight';
 
 const ProductCheckOut = () => {
     return (
-        <div>
-
-            <div className="w-full">
-                <div className="overflow-x-auto shadow">
-                    <table className="table w-full">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-
-                    </table>
-                </div>
-            </div>
-
+        <section className="py-4 lg:px-0 md:px-0 px-4">
+        <div className="container mx-auto">
+          <div className="flex lg:flex-row flex-col justify-between lg:gap-x-4 gap-y-4">
+            <CheckOutLeft/>
+            <CheckOutRight/>
+          </div>
         </div>
+      </section>
     );
 };
 

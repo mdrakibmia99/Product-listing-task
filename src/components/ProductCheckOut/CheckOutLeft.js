@@ -1,4 +1,5 @@
 import React from 'react';
+import CheckOutTable from './CheckOutTable';
 
 const CheckOutLeft = () => {
     return (
@@ -16,7 +17,7 @@ const CheckOutLeft = () => {
             </tr>
           </thead>
           <tbody>
-            <CheckoutRow />
+            <CheckOutTable/>
           </tbody>
         </table>
       </div>
