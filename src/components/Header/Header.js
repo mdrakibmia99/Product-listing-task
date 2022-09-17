@@ -1,36 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import ProductTable from '../Table/ProductTable';
 const Header = () => {
-const [allProducts,setAllProducts]=useState([])
-const [dressSelected,setDressSelected]=useState('');
-const [products,setProducts]=useState([])
-const [size,setSize]=useState('')
-const [searchProduct,setSearchProduct]=useState('')
-const [filterProduct,setFilterProduct]=useState([]);
-useEffect(()=>{
-    fetch("/products.json")
-    .then(res=>res.json())
-    .then(data=>setAllProducts(data))
-
-   
-},[])
-
-useEffect(()=>{
-    if(dressSelected===''){
-        setProducts(allProducts)
-        setFilterProduct(allProducts)
-    }else{
-        const  selectProduct= allProducts.filter((product)=>product.category.toLowerCase().includes(dressSelected.toLowerCase()) && product.size.toLowerCase().includes(size.toLowerCase())) ;
-        setProducts(selectProduct);
-        setFilterProduct(selectProduct);
-    }
-    if(searchProduct!==''){
-        const  selectProduct= filterProduct.filter((product)=>product.name.toLowerCase().includes(searchProduct.toLowerCase()));
-        setProducts(selectProduct);
-    }
+    const [allProducts, setAllProducts] = useState([])
+    const [products, setProducts] = useState([])
+    const [searchProduct, setSearchProduct] = useState('')
+    const [filterProduct, setFilterProduct] = useState([]);
+    const [category, setCategory] = useState('Category');
+    const [size, setSize] = useState('Size')
+    useEffect(() => {
+        fetch("/products.json")
+            .then(res => res.json())
+            .then(data => setAllProducts(data))
 
 
-},[dressSelected,allProducts,size,searchProduct,filterProduct])
+    }, [])
+
+    useEffect(() => {
+        if (category === 'Category') {
+            setProducts(allProducts)
+            setFilterProduct(allProducts)
+        } else if (category !== 'Category') {
+            const selectProduct = allProducts.filter((product) => product.category.toLowerCase().includes(category.toLowerCase()));
+            setProducts(selectProduct);
+            setFilterProduct(selectProduct);
+        }
+        if (size !== "Size") {
+            const selectProduct = filterProduct.filter((product) => product.size.toLowerCase().includes(size.toLowerCase()));
+            console.log(size, "size")
+            setProducts(selectProduct);
+            setFilterProduct(selectProduct);
+        }
+        if (searchProduct !== '') {
+            const selectProduct = filterProduct.filter((product) => product.name.toLowerCase().includes(searchProduct.toLowerCase()));
+            setProducts(selectProduct);
+        }
+
+
+    }, [allProducts, category, searchProduct, size])
 
 
     return (
@@ -40,9 +46,11 @@ useEffect(()=>{
                 <div className='header-left flex items-center gap-x-4  pl-5'>
                     <div className='dress-choice'>
                         <select
-                        onChange={(e)=>setDressSelected(e.target.value)} 
-                        className="select select-bordered select-sm w-full max-w-xs rounded-sm uppercase">
-                            <option disabled selected>Choice</option>
+                            defaultValue={category}
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            className="select select-bordered select-sm w-full max-w-xs rounded-sm">
+                            <option value={category} disabled selected>{category}</option>
                             <option>apparel</option>
                             <option>footwear</option>
                             <option>sportswear</option>
@@ -54,9 +62,11 @@ useEffect(()=>{
                     </div>
                     <div className='size-choice'>
                         <select
-                          onChange={(e)=>setSize(e.target.value)} 
-                         className="select select-bordered select-sm w-full max-w-xs rounded-sm uppercase">
-                            <option disabled selected>Size</option>
+                            defaultValue={size}
+                            value={size}
+                            onChange={(e) => setSize(e.target.value)}
+                            className="select select-bordered select-sm w-full max-w-xs rounded-sm">
+                            <option value={size} disabled selected>{size}</option>
                             <option>S</option>
                             <option>M</option>
                             <option>L</option>
@@ -64,7 +74,31 @@ useEffect(()=>{
                         </select>
                     </div>
                     <div>
-                        <button>Reset</button>
+                        <button
+                            className="btn btn-sm text-[#009ebe] rounded-sm flex gap-x-2 bg-white"
+                            onClick={() => {
+                                setCategory("Category");
+                                setSize("Size");
+                            }}
+                        >
+                            <span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="1.5"
+                                    stroke="currentColor"
+                                    className="w-6 h-6"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                                    />
+                                </svg>
+                            </span>
+                            <span>Reset</span>
+                        </button>
                     </div>
                 </div>
 
@@ -74,7 +108,7 @@ useEffect(()=>{
                     <div className="flex items-center gap-x-2">
                         <span className="font-medium lg:block md:block hidden">Search:</span>
                         <input
-                            onChange={(e)=>setSearchProduct(e.target.value)} 
+                            onChange={(e) => setSearchProduct(e.target.value)}
                             type="text"
                             placeholder="Enter product name"
                             className="input input-bordered rounded-sm input-md max-w-xs"
