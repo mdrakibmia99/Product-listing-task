@@ -4,16 +4,17 @@ import { addToCartSingle } from "../../utilities/useCart";
 const ProductTable = ({ products, setSelectProduct, selectProduct }) => {
     const navigate = useNavigate();
     const [productQTY, setProductQTY] = useState(0);
-
-
+    const getProducts = JSON.parse(localStorage.getItem("ProductListingCart"));
     const handleAddProduct = (product) => {
-        if (selectProduct.length === 0) {
+        let findProductOne=getProducts.find((prod)=> prod._id === product._id);
+        if (selectProduct.length === 0 && !findProductOne) {
             product.quantity = (productQTY>0)?productQTY : "1";
             setSelectProduct([product]);
             setProductQTY(0);
         } else {
-            let findProduct = selectProduct.find((prod) => prod._id === product._id)
-            if (findProduct) {
+            let findProduct = selectProduct.find((prod) => prod._id === product._id );
+            let findProductLocal=getProducts.find((prod)=> prod._id === product._id);
+            if (findProduct || findProductLocal) {
                 let filterProduct = selectProduct.filter(prod => prod._id !== product._id);
                 setSelectProduct(filterProduct)
             } else {
