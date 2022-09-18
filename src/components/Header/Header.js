@@ -125,7 +125,9 @@ const Header = () => {
 
                     {/* add to cart */}
                     <div>
-                        <button className="btn text-white lg:px-8 md:px-8 px-3 bg-[#00a0c0] border-0 rounded-sm whitespace-nowrap">Add to cart</button>
+                        <button
+                            className="btn text-white lg:px-8 md:px-8 px-3 bg-[#00a0c0] border-0 rounded-sm whitespace-nowrap">
+                            Add to cart</button>
                     </div>
                 </div>
             </div>

@@ -1,19 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { removeFromCart } from "../../utilities/useCart";
 const CheckOutTable = () => {
-    const [products,setProducts]=useState([])
+    const [products,setProducts]=useState([]);
+    const [deleteProduct,setDeleteProduct]=useState('')
     useEffect(()=>{
-        const products = JSON.parse(localStorage.getItem("ProductListingCart"));
-        setProducts(products)
-    },[products])
-
+        const product = JSON.parse(localStorage.getItem("ProductListingCart"));
+        setProducts(product)
+    },[deleteProduct])
+  
     return products?.map((product) => (
         <tr key={product._id} className="hover">
             <th>
                 <span
                     className="tooltip tooltip-right"
                     data-tip="Remove from Cart"
-                    onClick={() => removeFromCart(product._id)}
+                    onClick={() =>{
+                        removeFromCart(product._id);
+                        setDeleteProduct(product._id)
+
+                    }}
                     role={"button"}
                 >
                     <svg
