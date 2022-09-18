@@ -8,7 +8,7 @@ const ProductTable = ({ products, setSelectProduct, selectProduct }) => {
 
     const handleAddProduct = (product) => {
         if (selectProduct.length === 0) {
-            product.quantity = productQTY || "1";
+            product.quantity = (productQTY>0)?productQTY : "1";
             setSelectProduct([product]);
             setProductQTY(0);
         } else {
@@ -17,7 +17,7 @@ const ProductTable = ({ products, setSelectProduct, selectProduct }) => {
                 let filterProduct = selectProduct.filter(prod => prod._id !== product._id);
                 setSelectProduct(filterProduct)
             } else {
-                product.quantity = productQTY || "1";
+                product.quantity = (productQTY>0)?productQTY : "1";
                 setSelectProduct([...selectProduct, product]);
                 setProductQTY(0);
             }
@@ -125,6 +125,8 @@ const ProductTable = ({ products, setSelectProduct, selectProduct }) => {
                                                         if (productQTY >= 1) {
                                                             addToCartSingle(product, productQTY);
                                                             navigate("/productCheckOUt");
+                                                        }else{
+                                                            alert("Please Enter valid Quantity")
                                                         }
                                                     }}
                                                     className={`tooltip w-[90px] bg-[black] py-1 text-white flex justify-center rounded-sm ${product.stock === "Out of Stock" && "pointer-events-none"}`}
