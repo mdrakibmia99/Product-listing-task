@@ -1,6 +1,25 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { addToCartSingle } from "../../utilities/useCart";
 const ProductTable = ({ products }) => {
+    const navigate = useNavigate();
+    const [productQTY, setProductQTY] = useState(0);
+     let selectProduct=[];
+     
+const handleAddProduct=(product)=>{
+  if(selectProduct.length===0){
+     selectProduct.push(product);
+  }else{
+    let findProduct =selectProduct.find((prod)=> prod._id === product._id)
+    if(findProduct){
+       let filterProduct =selectProduct.filter(prod=>prod._id !== product._id);
+       selectProduct=filterProduct;
+    }else{
+        selectProduct.push(product)
+    }
+  }
+}
+
     return (
         <div>
             <div className="overflow-x-auto">
@@ -88,17 +107,24 @@ const ProductTable = ({ products }) => {
                                                 {/* input */}
                                                 <span>
                                                     <input
-                                                         disabled={product.stock === "Out of Stock"}
-                                                        type="text"
+                                                    onChange={(e) => setProductQTY(e.target.value)}
+                                                        disabled={product.stock === "Out of Stock"}
+                                                        type="number"
                                                         placeholder="Quantity"
                                                         className="input input-bordered input-sm max-w-[90px] rounded-sm"
                                                     />
                                                 </span>
 
                                                 {/* cart */}
-                                                <span 
-                                                   
-                                                className={`tooltip w-[90px] bg-[black] py-1 text-white flex justify-center rounded-sm ${product.stock === "Out of Stock" && "pointer-events-none"}`} data-tip="Add to Cart">
+                                                <span
+                                                    onClick={() => {
+                                                        if (productQTY >= 1) {
+                                                            addToCartSingle(product, productQTY);
+                                                            navigate("/productCheckOUt");
+                                                        }
+                                                    }}
+                                                    className={`tooltip w-[90px] bg-[black] py-1 text-white flex justify-center rounded-sm ${product.stock === "Out of Stock" && "pointer-events-none"}`}
+                                                    data-tip="Add to Cart">
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         fill="none"
@@ -121,7 +147,9 @@ const ProductTable = ({ products }) => {
 
                                                 <span className="flex">
                                                     <div className="tooltip text-white" data-tip="Select multiple">
-                                                        <input type="checkbox" className="checkbox checkbox-sm shadow" />
+                                                        <input
+                                                         onClick={()=>handleAddProduct(product)}
+                                                        type="checkbox" className="checkbox checkbox-sm shadow" />
 
                                                     </div>
                                                 </span>}
