@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addToCartSingle } from "../../utilities/useCart";
-const ProductTable = ({ products ,handleMultipleSelectProduct}) => {
+const ProductTable = ({ products ,setSelectProduct,selectProduct}) => {
     const navigate = useNavigate();
     const [productQTY, setProductQTY] = useState(0);
-     let selectProduct=[];
+    //  let selectProduct=[];
      
 const handleAddProduct=(product)=>{
   if(selectProduct.length===0){
-     selectProduct.push(product);
+    //  selectProduct.push(product);
+     setSelectProduct([product]);
   }else{
     let findProduct =selectProduct.find((prod)=> prod._id === product._id)
     if(findProduct){
        let filterProduct =selectProduct.filter(prod=>prod._id !== product._id);
-       selectProduct=filterProduct;
+    //    selectProduct=filterProduct;
+    setSelectProduct(filterProduct)
     }else{
-        selectProduct.push(product)
+        // selectProduct.push(product)
+        setSelectProduct([...selectProduct,product])
     }
   }
 }

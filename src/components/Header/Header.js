@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductTable from '../Table/ProductTable';
 const Header = () => {
+    const navigate = useNavigate();
     const [allProducts, setAllProducts] = useState([])
     const [products, setProducts] = useState([])
     const [searchProduct, setSearchProduct] = useState('')
     const [filterProduct, setFilterProduct] = useState([]);
     const [category, setCategory] = useState('Category');
-    const [size, setSize] = useState('Size')
+    const [size, setSize] = useState('Size');
+    const [selectProduct,setSelectProduct]=useState([]);
 
     useEffect(() => {
         fetch("/products.json")
@@ -44,6 +47,12 @@ const Header = () => {
 
     }, [allProducts, category, searchProduct, size])
 
+const handleMultipleAddProduct=()=>{
+    const getProducts = JSON.parse(localStorage.getItem("ProductListingCart"));
+    localStorage.setItem("ProductListingCart", JSON.stringify([...getProducts,...selectProduct]));
+    navigate("/productCheckOUt");
+
+}
 
     return (
         <div className=''>
@@ -126,6 +135,7 @@ const Header = () => {
                     {/* add to cart */}
                     <div>
                         <button
+                           onClick={handleMultipleAddProduct}
                             className="btn text-white lg:px-8 md:px-8 px-3 bg-[#00a0c0] border-0 rounded-sm whitespace-nowrap">
                             Add to cart</button>
                     </div>
@@ -133,7 +143,7 @@ const Header = () => {
             </div>
             {/* this is product table section  */}
             <div className='container mx-auto mt-3'>
-                <ProductTable products={products}></ProductTable>
+                <ProductTable products={products} setSelectProduct={setSelectProduct} selectProduct={selectProduct}></ProductTable>
             </div>
         </div>
     );
