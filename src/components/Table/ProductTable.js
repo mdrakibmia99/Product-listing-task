@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addToCartSingle } from "../../utilities/useCart";
-const ProductTable = ({ products ,setSelectProduct,selectProduct}) => {
+const ProductTable = ({ products, setSelectProduct, selectProduct }) => {
     const navigate = useNavigate();
     const [productQTY, setProductQTY] = useState(0);
-    //  let selectProduct=[];
-     
-const handleAddProduct=(product)=>{
-  if(selectProduct.length===0){
-    //  selectProduct.push(product);
-     setSelectProduct([product]);
-  }else{
-    let findProduct =selectProduct.find((prod)=> prod._id === product._id)
-    if(findProduct){
-       let filterProduct =selectProduct.filter(prod=>prod._id !== product._id);
-    //    selectProduct=filterProduct;
-    setSelectProduct(filterProduct)
-    }else{
-        // selectProduct.push(product)
-        setSelectProduct([...selectProduct,product])
+
+
+    const handleAddProduct = (product) => {
+        if (selectProduct.length === 0) {
+            product.quantity = productQTY || "1";
+            setSelectProduct([product]);
+            setProductQTY(0);
+        } else {
+            let findProduct = selectProduct.find((prod) => prod._id === product._id)
+            if (findProduct) {
+                let filterProduct = selectProduct.filter(prod => prod._id !== product._id);
+                setSelectProduct(filterProduct)
+            } else {
+                product.quantity = productQTY || "1";
+                setSelectProduct([...selectProduct, product]);
+                setProductQTY(0);
+            }
+        }
     }
-  }
-}
 
     return (
         <div>
@@ -110,7 +111,7 @@ const handleAddProduct=(product)=>{
                                                 {/* input */}
                                                 <span>
                                                     <input
-                                                    onChange={(e) => setProductQTY(e.target.value)}
+                                                        onChange={(e) => setProductQTY(e.target.value)}
                                                         disabled={product.stock === "Out of Stock"}
                                                         type="number"
                                                         placeholder="Quantity"
@@ -151,8 +152,8 @@ const handleAddProduct=(product)=>{
                                                 <span className="flex">
                                                     <div className="tooltip text-white" data-tip="Select multiple">
                                                         <input
-                                                         onClick={()=>handleAddProduct(product)}
-                                                        type="checkbox" className="checkbox checkbox-sm shadow" />
+                                                            onClick={() => handleAddProduct(product)}
+                                                            type="checkbox" className="checkbox checkbox-sm shadow" />
 
                                                     </div>
                                                 </span>}
