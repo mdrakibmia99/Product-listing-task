@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckOutTable from './CheckOutTable';
 
-const CheckOutLeft = () => {
+const CheckOutLeft = ({deleteProduct,setDeleteProduct}) => {
     return (
         <section className="w-full">
       <div className="overflow-x-auto shadow">
@@ -17,7 +17,7 @@ const CheckOutLeft = () => {
             </tr>
           </thead>
           <tbody>
-            <CheckOutTable/>
+            <CheckOutTable setDeleteProduct={setDeleteProduct} deleteProduct={deleteProduct}/>
           </tbody>
         </table>
       </div>

@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const CheckOutRight = ({deleteProduct}) => {
         const navigate = useNavigate();
-        let subTotal = 0;
+        const [subTotal,setSubtotal]=useState(0)
         useEffect(()=>{
-
+            let subTotal = 0;
             JSON.parse(localStorage.getItem("ProductListingCart")).forEach(prod => subTotal += (Number(prod.price) * Number(prod.quantity)));
+            setSubtotal(subTotal)
         },[deleteProduct])
       
         return (
@@ -44,13 +45,13 @@ const CheckOutRight = ({deleteProduct}) => {
                   {/* total */}
                   <div className="flex justify-between">
                     <span className="font-medium text-xl tooltip tooltip-right" data-tip="Including tax $2.50 ">Total</span>
-                    <span>${(subTotal + 2.50).toFixed(2)}</span>
+                    <span>${(subTotal).toFixed(2)}</span>
                   </div>
                 </div>
                 <div className="card-actions justify-center">
                   <button
                     className="btn btn-wide text-white bg-[#1c3eaa] rounded-3xl border-0"
-                    onClick={() => navigate("/tysm")}
+                    onClick={() => navigate("/process")}
                   >
                     Proceed to checkout
                   </button>

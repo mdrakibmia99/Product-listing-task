@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { removeFromCart } from "../../utilities/useCart";
-const CheckOutTable = () => {
+const CheckOutTable = ({deleteProduct,setDeleteProduct}) => {
     const [products,setProducts]=useState([]);
-    const [deleteProduct,setDeleteProduct]=useState('')
+    // const [deleteProduct,setDeleteProduct]=useState('')
     useEffect(()=>{
         const product = JSON.parse(localStorage.getItem("ProductListingCart"));
         setProducts(product)

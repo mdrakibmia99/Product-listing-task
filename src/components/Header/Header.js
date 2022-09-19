@@ -88,7 +88,7 @@ const handleMultipleAddProduct=()=>{
                             <option>XL</option>
                         </select>
                     </div>
-                    <div>
+                   
                         <button
                             className="btn btn-sm text-[#009ebe] rounded-sm flex gap-x-2 bg-white"
                             onClick={() => {
@@ -115,7 +115,7 @@ const handleMultipleAddProduct=()=>{
                             </span>
                             <span>Reset</span>
                         </button>
-                    </div>
+                   
                 </div>
 
                 {/* header right search and add to cart part        */}
